@@ -26,26 +26,26 @@ published by the soundDetection ROS node on the /soundDetection/signal ROS
 topic, and publishes the transcribed text on the /speechEvent/text ROS topic.
 
 Libraries:
-- Ubuntu libraries: cython3 ffmpeg gfortran libopenblas-dev
-    libopenblas64-dev patchelf pkg-config python3-testresources
-    python3-typing-extensions sox
-- Python libraries: nemo, numpy, rospy, scipy, std_msgs, torch
+- Ubuntu libraries:
+    cython3, ffmpeg, gfortran, libopenblas-dev, libopenblas64-dev, patchelf,
+    pkg-config, python3.12-tk, python3-testresources  python3-typing-extensions,
+    sox
+- Python libraries:
+    nemo, numpy, rospy, scipy, std_msgs, torch
 
 Parameters:
-- None
+- Command-line Parameters:
+    None
 
-Command-line Parameters:
-- None
-
-Configuration File Parameters:
-- language                              Kinyarwanda | English
-- verboseMode                           true | false
-- cuda                                  true | false
-- confidence                            0.2
-- speechPausePeriod                     1.5
-- maxUtteranceLength                    5
-- sampleRate                            48000
-- heartbeatMsgPeriod                    10
+- Configuration File Parameters:
+    language                            Kinyarwanda | English
+    verboseMode                         true | false
+    cuda                                true | false
+    confidence                          0.2
+    speechPausePeriod                   1.5
+    maxUtteranceLength                  5
+    sampleRate                          48000
+    heartbeatMsgPeriod                  10
 
 Subscribed Topics and Message Types:
 - /soundDetection/signal                std_msgs/Float32MultiArray
@@ -80,36 +80,30 @@ Version:    v1.0
 """
 
 import os
-import sys
 
 import rospy
 
-sys.path.insert(0, os.path.dirname(__file__))
 import speech_event_implementation as se_imp
+import speech_event_utils as se_utils
 
 
 if __name__ == "__main__":
     current_file_dir = os.path.dirname(__file__)
-    config_file_path = os.path.join(
-        os.path.dirname(current_file_dir), "config", "speech_event_configuration.ini"
-    )
-    topics_file_path = os.path.join(
-        os.path.dirname(current_file_dir), "data", "pepper_topics.dat"
-    )
-    rw_model_path = os.path.join(
-        os.path.dirname(current_file_dir), "models", "stt_rw_conformer_transducer_large.nemo"
-    )
-    en_model_path = os.path.join(
-        os.path.dirname(current_file_dir), "models", "stt_en_conformer_transducer_large.nemo"
-    )
-    audio_storage_dir = os.path.join(
-        os.path.dirname(current_file_dir), "data", "audio_storage"
-    )
 
-    config = se_imp.parse_config_file(config_file_path)
-    topics = se_imp.parse_config_file(topics_file_path)
-    
-    se_imp.initialise(config, topics, rw_model_path, en_model_path, audio_storage_dir)
+    se_imp.initialise(
+        se_utils.parse_config_file(os.path.join(
+            os.path.dirname(current_file_dir), "config", "speech_event_configuration.ini"
+        )),
+        se_utils.parse_config_file(os.path.join(
+            os.path.dirname(current_file_dir), "data", "pepper_topics.dat"
+        )),
+        os.path.join(
+            os.path.dirname(current_file_dir), "models", "commandrecognition_rw_matchboxnet3x1x64_v1.nemo"
+        ),
+        os.path.join(
+            os.path.dirname(current_file_dir), "models", "commandrecognition_en_matchboxnet3x1x64_v1.nemo"
+        )
+    )
 
     try:
         se_imp.run()

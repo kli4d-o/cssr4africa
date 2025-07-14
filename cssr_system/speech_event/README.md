@@ -66,7 +66,7 @@ tests. The deliverable report can be found in
       ```bash
       sudo apt-get update
 
-      sudo apt-get install cython3 ffmpeg gfortran libopenblas-dev libopenblas64-dev patchelf pkg-config portaudio19-dev python3-testresources python3-tk python3-typing-extensions sox
+      sudo apt-get install cython3 ffmpeg gfortran libopenblas-dev libopenblas64-dev patchelf pkg-config portaudio19-dev python3-testresources python3.12-tk python3-typing-extensions sox
        ```
 
    - Create a Python virtual environment and install required Python packages (Speech Event has been tested and proven to work using Python3.8)
