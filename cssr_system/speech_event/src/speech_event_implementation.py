@@ -174,7 +174,7 @@ def _trigger_audio_transcription(event):
         return
 
     transcription = _get_audio_transcription(samples_to_transcribe)
-    _publisher.publish(transcription)
+    _publisher.publish(transcription) if transcription != SPEECH_NOT_RECOGNISED_TEXT else "pass"
     rospy.logerr(f"{transcription}")
 
     rospy.loginfo(
