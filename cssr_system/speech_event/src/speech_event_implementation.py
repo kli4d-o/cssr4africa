@@ -45,14 +45,13 @@ SPEECH_NOT_RECOGNISED_TEXT = "Error: speech not recognized"
 SOUND_DETECTION_DOWN_TEXT = "Error: soundDetection is down"
 NEMO_SAMPLE_RATE = 16000  # sampling rate of audio required by nemo ASR models
 IS_TRANSCRIPTION_ENABLED = True
+TRANSCRIPTION_WINDOW = 1  # seconds
 
 # Config options set via config file
 LANGUAGE = "Kinyarwanda"  # Kinyarwanda or English
 VERBOSE_MODE = True
 CUDA = False
 CONFIDENCE = 0.5  # on a scale of 0 to 1
-SPEECH_PAUSE_PERIOD = 1.5  # seconds
-MAX_UTTERANCE_LENGTH = 5  # seconds
 SAMPLE_RATE = 48000  # sampling rate of audio signal incoming from soundDetection
 HEARTBEAT_MSG_PERIOD = 10  # seconds
 
@@ -169,21 +168,21 @@ def _trigger_audio_transcription(event):
     if _last_audio_received_at is None:
         return
 
-    currrent_time = time.time()
+    samples_to_transcribe = _streamed_samples[:TRANSCRIPTION_WINDOW * SAMPLE_RATE]
 
-    if currrent_time - _first_audio_received_at < MAX_UTTERANCE_LENGTH:
-        if currrent_time - _last_audio_received_at < SPEECH_PAUSE_PERIOD:
-            return
+    if samples_to_transcribe.shape[0] < SAMPLE_RATE:
+        return
 
-    transcription = _get_audio_transcription(_streamed_samples)
+    transcription = _get_audio_transcription(samples_to_transcribe)
     _publisher.publish(transcription)
+    rospy.logerr(f"{transcription}")
 
     rospy.loginfo(
         "speechEvent: transcription process (plus utterance length) has taken "
         f"{round(time.time() - _first_audio_received_at, 4)} seconds"
     ) if VERBOSE_MODE else "pass"
 
-    _streamed_samples = torch.tensor([], dtype=torch.float32)
+    _streamed_samples = _streamed_samples[TRANSCRIPTION_WINDOW * SAMPLE_RATE // 2:]
     _last_audio_received_at = None
 
 
@@ -339,7 +338,7 @@ def initialise(config, topics, rw_model_path, en_model_path):
         rw_model_path:      path to Kinyarwanda ASR model
         en_model_path:      path to English ASR model
     """
-    global LANGUAGE, VERBOSE_MODE, CUDA, CONFIDENCE, SPEECH_PAUSE_PERIOD, MAX_UTTERANCE_LENGTH, SAMPLE_RATE, HEARTBEAT_MSG_PERIOD
+    global LANGUAGE, VERBOSE_MODE, CUDA, CONFIDENCE, SAMPLE_RATE, HEARTBEAT_MSG_PERIOD
     global SOUND_DETECTION_TOPIC
     global RW_MODEL_PATH, EN_MODEL_PATH
     global _publisher
@@ -383,8 +382,6 @@ def initialise(config, topics, rw_model_path, en_model_path):
     VERBOSE_MODE = True if config["verboseMode"].strip().lower() == "true" else False
     CUDA = True if config["cuda"].strip().lower() == "true" else False
     CONFIDENCE = float(config["confidence"].strip())
-    SPEECH_PAUSE_PERIOD = float(config["speechPausePeriod"].strip())
-    MAX_UTTERANCE_LENGTH = float(config["maxUtteranceLength"].strip())
     SAMPLE_RATE = int(config["sampleRate"].strip())
     HEARTBEAT_MSG_PERIOD = int(config["heartbeatMsgPeriod"].strip())
     SOUND_DETECTION_TOPIC = topics["soundDetection"].strip()

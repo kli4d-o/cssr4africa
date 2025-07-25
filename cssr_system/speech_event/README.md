@@ -117,8 +117,6 @@ tests. The deliverable report can be found in
    | verboseMode        | true \| false            | Specifies whether diagnostic data is to be printed to the terminal.                                                         |
    | cuda               | true \| false            | Specifies whether to use GPUs. The term ‘cuda’ is chosen as the key to alert the user that only NVIDIA GPUs are supported.  |
    | confidence         | \<float>                 | The confidence level on a scale of 0 to 1 above which transcriptions are are assumed to be acceptable and correct.          |
-   | speechPausePeriod  | \<float>                 | The time period above which one utterance is assumed to be separate from a preceding utterance.                             |
-   | maxUtteranceLength | \<int>                   | The maximum length (in seconds) of an utterance. Longer utterances are split when they go past this length.                 |
    | sampleRate         | \<int>                   | Specifies the sampling rate of the incoming audio sourced from the /soundDetection/signal ROS topic.                        |
    | heartbeatMsgPeriod | \<int>                   | Specifies the time period in seconds at which a periodic heartbeat message is sent to the terminal.                            |
 

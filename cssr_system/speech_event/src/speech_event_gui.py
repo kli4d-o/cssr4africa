@@ -21,6 +21,17 @@ import time
 import tkinter as tk
 
 
+class _FixedSizeList(list):
+    def __init__(self, capacity, *args):
+        super().__init__(*args)
+        self._capacity = capacity
+
+    def append(self, object):
+        while len(self) >= self._capacity:
+            self.pop(0)
+        super().append(object)
+
+
 class GUI:
     def _get_main_window(title):
         """ Return the main top-level Tkinter widget
@@ -52,7 +63,7 @@ class GUI:
         
         return frame
 
-    def _listen_on_topic(window, text, process):
+    def _listen_on_topic(window, text, process, max_num_of_words):
         """ A forever running loop that listens on the /speechEvent/text ROS topic
         and updates the GUI with any text that gets published on the topic
 
@@ -62,21 +73,22 @@ class GUI:
                 transcriptions published on /speechEvent/text
             process (subprocess.Popen): process that reads text published on
                 /speechEvent/text
+            max_num_of_words (int):     max number of words to display on GUI
 
         Returns:
             None
         """
+        text_list = _FixedSizeList(max_num_of_words)
+
         while True:
             if process.poll():
                 break
             stdout = process.stdout.readline().decode("UTF-8")
-            window.after(
-                0,
-                lambda: text.configure(text=stdout[7:-2]) if "data" in stdout else "pass"
-            )
-            time.sleep(1)
+            if "data" in stdout:
+                [text_list.append(i) for i in stdout[7:-2].split(" ")]
+                window.after(0, lambda: text.configure(text=" ".join(text_list)))
 
-    def run(pub_topic):
+    def run(pub_topic, max_num_of_words=10):
         """
         Run GUI application to display text transcriptions being published on the
         /speechEvent/text ROS topic
@@ -93,7 +105,10 @@ class GUI:
         text.grid(column=0, row=0, sticky=(tk.N, tk.W, tk.E, tk.S))
         text.pack(side="top", fill="both", expand=True)
 
-        topic_p = threading.Thread(target=GUI._listen_on_topic, args=(window, text, process))
+        topic_p = threading.Thread(
+            target=GUI._listen_on_topic,
+            args=(window, text, process, max_num_of_words)
+        )
         topic_p.start()
         window.mainloop()
         topic_p.join()

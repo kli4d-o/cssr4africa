@@ -42,8 +42,6 @@ Parameters:
     verboseMode                         true | false
     cuda                                true | false
     confidence                          0.2
-    speechPausePeriod                   1.5
-    maxUtteranceLength                  5
     sampleRate                          48000
     heartbeatMsgPeriod                  10
 
