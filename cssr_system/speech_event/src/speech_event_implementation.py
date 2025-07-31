@@ -168,7 +168,7 @@ def _trigger_audio_transcription(event):
     if _last_audio_received_at is None:
         return
 
-    samples_to_transcribe = _streamed_samples[:TRANSCRIPTION_WINDOW * SAMPLE_RATE]
+    samples_to_transcribe = _streamed_samples[:int(TRANSCRIPTION_WINDOW * SAMPLE_RATE)]
 
     if samples_to_transcribe.shape[0] < SAMPLE_RATE:
         return
