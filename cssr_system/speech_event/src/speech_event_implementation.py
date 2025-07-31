@@ -45,7 +45,7 @@ SPEECH_NOT_RECOGNISED_TEXT = "Error: speech not recognized"
 SOUND_DETECTION_DOWN_TEXT = "Error: soundDetection is down"
 NEMO_SAMPLE_RATE = 16000  # sampling rate of audio required by nemo ASR models
 IS_TRANSCRIPTION_ENABLED = True
-TRANSCRIPTION_WINDOW = 1  # seconds
+TRANSCRIPTION_WINDOW = 2  # seconds
 
 # Config options set via config file
 LANGUAGE = "Kinyarwanda"  # Kinyarwanda or English
@@ -175,14 +175,13 @@ def _trigger_audio_transcription(event):
 
     transcription = _get_audio_transcription(samples_to_transcribe)
     _publisher.publish(transcription) if transcription != SPEECH_NOT_RECOGNISED_TEXT else "pass"
-    rospy.logerr(f"{transcription}")
 
     rospy.loginfo(
         "speechEvent: transcription process (plus utterance length) has taken "
         f"{round(time.time() - _first_audio_received_at, 4)} seconds"
     ) if VERBOSE_MODE else "pass"
 
-    _streamed_samples = _streamed_samples[TRANSCRIPTION_WINDOW * SAMPLE_RATE // 2:]
+    _streamed_samples = _streamed_samples[SAMPLE_RATE // 2:]
     _last_audio_received_at = None
 
 
