@@ -96,7 +96,7 @@ if __name__ == "__main__":
             os.path.dirname(current_file_dir), "data", "pepper_topics.dat"
         )),
         os.path.join(
-            os.path.dirname(current_file_dir), "models", "commandrecognition_rw_matchboxnet3x1x64_v1.nemo"
+            os.path.dirname(current_file_dir), "models", "kws_rw_matchboxnet3x1x64_v1.nemo"
         ),
         os.path.join(
             os.path.dirname(current_file_dir), "models", "commandrecognition_en_matchboxnet3x1x64_v1.nemo"
