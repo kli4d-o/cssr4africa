@@ -17,7 +17,6 @@ This program comes with ABSOLUTELY NO WARRANTY.
 
 import subprocess
 import threading
-import time
 import tkinter as tk
 
 
