@@ -228,11 +228,10 @@ def run_file_mode():
     """
     publisher = rospy.Publisher(PUB_TOPIC, Float32MultiArray, queue_size=3)
 
-    rospy.loginfo("speechEventDriver: ROS node '%s' is running ..." % NODE_NAME)
     rospy.Service(
         SET_NEXT_TEST_FILE_SERVICE, set_next_test_file, _set_next_test_file_handler
     )
-    rospy.loginfo("speechEventDriver: {NODE_NAME} is running")
+    rospy.loginfo(f"speechEventDriver: {NODE_NAME} is running")
 
     try:
         while not rospy.is_shutdown():
