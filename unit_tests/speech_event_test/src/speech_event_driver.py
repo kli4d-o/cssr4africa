@@ -231,6 +231,13 @@ def run_file_mode():
     rospy.Service(
         SET_NEXT_TEST_FILE_SERVICE, set_next_test_file, _set_next_test_file_handler
     )
+
+    print(
+        """
+        \rspeechEventDriver: The speechEventDriver is publishing audio samples of saved audio files. To change the audio being
+        \rpublished, use the /speechEventDriver/set_next_test_file ROS service.
+        """
+    )
     rospy.loginfo(f"speechEventDriver: {NODE_NAME} is running")
 
     try:
