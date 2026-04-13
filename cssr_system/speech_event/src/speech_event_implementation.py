@@ -220,7 +220,7 @@ def _recognise_speech_action_handler(goal):
     _aggregate_signal = False
 
     if _streamed_samples.shape[0] == 0:
-        result.text = ""
+        result.transcription = ""
         _recognise_speech_action_server.set_succeeded(result)
         return
 

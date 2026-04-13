@@ -8,3 +8,7 @@ on a person's reply to Pepper's prompting.
 
 - `~/Desktop/llama.cpp/build/bin/llama-server -hf ggml-org/Falcon-H1-0.5B-Instruct-Q8_0-GGUF`
 - `~/Desktop/llama.cpp/build/bin/llama-server -hf HuggingFaceTB/SmolLM2-360M-Instruct-GGUF`
+
+- `~/Desktop/llama.cpp/build/bin/llama-server -hf mradermacher/AfriqueLlama-8B-i1-GGUF`
+- `~/Desktop/llama.cpp/build/bin/llama-server -hf mradermacher/AfriqueQwen-8B-i1-GGUF`
+- `~/Desktop/llama.cpp/build/bin/llama-server -hf mradermacher/AfriqueGemma-4B-i1-GGUF`
