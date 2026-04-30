@@ -1,18 +1,24 @@
-/* gestureExecutionStub.cpp
-*
-* Author: Adedayo Akinade
-* Date: January 10, 2025
-* Version: v1.0
-*
-* Copyright (C) 2023 CSSR4Africa Consortium
-*
-* This project is funded by the African Engineering and Technology Network (Afretec)
-* Inclusive Digital Transformation Research Grant Programme.
-*
-* Website: www.cssr4africa.org
-*
-* This program comes with ABSOLUTELY NO WARRANTY.
-*/
+/* gestureExecutionTestStub.cpp
+ *
+ * Author:  Adedayo Akinade, Carnegie Mellon University Africa
+ * Email:   aakinade@andrew.cmu.edu
+ * Date:    January 10, 2025
+ * Version: v1.0
+ *
+ * Author:  Tsegazeab Tefferi, Carnegie Mellon University Africa
+ * Email:   ttefferi@andrew.cmu.edu
+ * Date:    April 15, 2026
+ * Version: v1.1
+ *
+ * Copyright (C) 2023 CSSR4Africa Consortium
+ *
+ * This project is funded by the African Engineering and Technology Network (Afretec)
+ * Inclusive Digital Transformation Research Grant Programme.
+ *
+ * Website: www.cssr4africa.org
+ *
+ * This program comes with ABSOLUTELY NO WARRANTY.
+ */
 
 #include <ros/ros.h>
 #include <ros/package.h>
@@ -36,7 +42,7 @@
 
 #define ROS
 
-#define SOFTWARE_VERSION            "v1.0"
+#define SOFTWARE_VERSION            "v1.1"
 
 #define INITIALIZATION_INFO_PERIOD 5.0
 #define OPERATION_INFO_PERIOD 10.0
@@ -860,15 +866,19 @@ int main(int argc, char **argv) {
     ros::Publisher attention_velocity_publisher;                            // The publisher for the velocity commands
 
     node_name = ros::this_node::getName();
+    // Remove leading slash from node name
+    if (!node_name.empty() && node_name[0] == '/') {
+        node_name.erase(0, 1);
+    }
 
     // Register the signal handler
     signal(SIGINT, shut_down_handler);                                   // The signal handler for the interrupt signal    
 
     std::string copyright_message = node_name + ": " + std::string(SOFTWARE_VERSION) + 
-                                    "\n\t\t\t\t\t\t       This project is funded by the African Engineering and Technology Network (Afretec)"
-                                    "\n\t\t\t\t\t\t       Inclusive Digital Transformation Research Grant Programme. "
-                                    "\n\t\t\t\t\t\t       Website: www.cssr4africa.org "
-                                    "\n\t\t\t\t\t\t       This program comes with ABSOLUTELY NO WARRANTY.";
+                                    "\n\t\t\t\tThis project is funded by the African Engineering and Technology Network (Afretec)"
+                                    "\n\t\t\t\tInclusive Digital Transformation Research Grant Programme. "
+                                    "\n\t\t\t\tWebsite: www.cssr4africa.org "
+                                    "\n\t\t\t\tThis program comes with ABSOLUTELY NO WARRANTY.";
 
     ROS_INFO("%s", copyright_message.c_str());                                  // Print the copyright message
 

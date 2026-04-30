@@ -1,8 +1,14 @@
-/* gestureExecutionTestInterface.cpp
+/* gestureExecutionTestInterface.h
 *
-* Author: Adedayo Akinade
-* Date: December 16, 2024
-* Version: v1.0
+ * Author:   Adedayo Akinade, Carnegie Mellon University Africa
+ * Email:    aakinade@andrew.cmu.edu
+ * Date:     December 16, 2024
+ * Version:  v1.0
+ *
+ * Author:  Tsegazeab Tefferi, Carnegie Mellon University Africa
+ * Email:   ttefferi@andrew.cmu.edu
+ * Date:    April 15, 2026
+ * Version: v1.1
 *
 * Copyright (C) 2023 CSSR4Africa Consortium
 *
@@ -44,7 +50,7 @@ using namespace std;
 
 #define CSSR_SYSTEM_PACKAGE_NAME "cssr_system"
 
-#define SOFTWARE_VERSION "v1.0"
+#define SOFTWARE_VERSION "v1.1"
 
 #define INITIALIZATION_INFO_PERIOD 5.0
 #define OPERATION_INFO_PERIOD 10.0
@@ -66,6 +72,8 @@ extern std::string node_name;                                                 //
 
 extern ros::Publisher speech_pub;                                            // Publisher for speech commands
 extern std_msgs::String speech_msg;                                            // Message for speech commands
+
+extern std::string interface;
 
 
 // The gesture execution unit test class
@@ -148,7 +156,7 @@ class GestureExecutionUnitTest : public ::testing::Test {
  *      0 if the gesture execution test input file is read successfully
  *      1 if the gesture execution test input file is not read successfully
  */
-int read_gesture_execution_test_configuration(string* platform, bool* debug);
+int read_gesture_execution_test_configuration(string* platform, string* interface, bool* debug);
 
 /*  
 *   Function to write a string to a file
@@ -207,9 +215,9 @@ int write_configuration_file(std::string platform, std::string interpolation, st
  *     cmd: the service command to run
  * 
  * @return
- *    result: the response from the service
+ *    result: the response from the command
  */
-std::string invoke_service(const char* cmd);
+std::string invoke_command(const char* cmd);
 
 
 /* 

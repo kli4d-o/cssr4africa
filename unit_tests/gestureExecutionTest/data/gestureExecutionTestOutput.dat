@@ -1,6 +1,6 @@
 Gesture Execution Test Report: robot
 ======================================
-Date: 2025-01-27 15:40:47
+Date: 2026-05-19 15:39:26
 
 Iconic Gesture 01 : Welcome Gesture
 	Joint Names   :	LShoulderPitch LShoulderRoll LElbowYaw LElbowRoll LWristYaw 
@@ -65,19 +65,27 @@ Iconic Gesture 05 : Shake Gesture
 	Result        : PASSED
 
 Deictic Gesture 
-	To			  : 0.6 5.1 0.82
+	To			  : 0.6 4.8 0.82	 using EITHER
 	Result        : PASSED
 
 Deictic Gesture 
-	To			  : 6.8 4.8 0.82
+	To			  : 0.6 4.8 0.82	 using LEFT
 	Result        : PASSED
 
 Deictic Gesture 
-	To			  : 5.0 1.8 0.82
+	To			  : 3.2 3.0 0.82	 using EITHER
 	Result        : PASSED
 
 Deictic Gesture 
-	To			  : 6.8 9.6 0.82
+	To			  : 3.2 3.0 0.82	 using RIGHT
+	Result        : PASSED
+
+Deictic Gesture 
+	To			  : 4.4 7.8 0.82	 using EITHER
+	Result        : PASSED
+
+Deictic Gesture 
+	To			  : 4.4 7.8 0.82	 using RIGHT
 	Result        : PASSED
 
 Bow Gesture 
