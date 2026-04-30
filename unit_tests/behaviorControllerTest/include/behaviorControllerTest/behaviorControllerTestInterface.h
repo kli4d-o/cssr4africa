@@ -1,18 +1,24 @@
 /* behaviorControllerTestInterface.h - interface file for behaviorControllerTestApplication and behaivorControllerTestImplementation
-*
-* Author: Tsegazeab Taye Tefferi
-* Date: April 20, 2025
-* Version: v1.0
-*
-* Copyright (C) 2023 CSSR4Africa Consortium
-*
-* This project is funded by the African Engineering and Technology Network (Afretec)
-* Inclusive Digital Transformation Research Grant Programme.
-*
-* Website: www.cssr4africa.org
-*
-* This program comes with ABSOLUTELY NO WARRANTY.
-*/
+ *
+ * Author:  Tsegazeab Taye Tefferi, Carnegie Mellon University Africa
+ * Email:   ttefferi@andrew.cmu.edu
+ * Date:    April 20, 2025
+ * Version: v1.0
+ *
+ * Author:  Tsegazeab Taye Tefferi, Carnegie Mellon University Africa
+ * Email:   ttefferi@andrew.cmu.edu
+ * Date:    April 20, 2026
+ * Version: v1.1
+ * 
+ * Copyright (C) 2023 CSSR4Africa Consortium
+ *
+ * This project is funded by the African Engineering and Technology Network (Afretec)
+ * Inclusive Digital Transformation Research Grant Programme.
+ *
+ * Website: www.cssr4africa.org
+ *
+ * This program comes with ABSOLUTELY NO WARRANTY.
+ */
 
 #ifndef BEHAVIOR_CONTROLLER_TEST_INTERFACE_H
 #define BEHAVIOR_CONTROLLER_TEST_INTERFACE_H
@@ -27,6 +33,8 @@
 #include <string>
 #include <vector>
 
+#include <actionlib/client/simple_action_client.h>
+#include <actionlib/server/simple_action_server.h>
 
 //Configuration variables
 extern bool verboseMode;
@@ -42,8 +50,7 @@ extern float failureRate;
 Logs the string (args) to the terminal based on the (type).
 Wrapper around the default ROS logging functions
 */
-template<typename T>
-void printMsg(int type,const T& args);
+void printMsg(int type, const std::string& args);
 
 /* Returns the value of a key from the configuration file. */
 std::string getValueFromConfig(const std::string &key);

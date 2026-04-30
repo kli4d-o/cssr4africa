@@ -85,7 +85,7 @@ Accompanying this code is the deliverable report that provides a detailed explan
     
      or launches the actual nodes (if available).
     ```bash
-    cd $HOME/workspace/pepper_rob_ws && source devel/setup.bash && roslaunch unit_tests behaviorControllerTestLaunchHarness.launch launch_drivers:=true launch_test:=true
+    cd $HOME/workspace/pepper_rob_ws && source devel/setup.bash && roslaunch unit_tests behaviorControllerTestLaunchTestHarness.launch launch_drivers:=true launch_test:=true
     ```
     <div style="background-color: #1e1e1e; padding: 15px; border-radius: 4px; border: 1px solid #404040; margin: 10px 0;">
     <span style="color: #ff3333; font-weight: bold;">NOTE: </span>
@@ -149,7 +149,7 @@ PerformDeicticGesture -> Passed!
 
 For issues or questions:
 - Create an issue on GitHub
-- Contact: <a href="mailto:ttefferi@andrew.cmu.edu">ttefferi@andrew.cmu.edu</a><br>
+- Contact: <a href="mailto:dvernon@andrew.cmu.edu">dvernon@andrew.cmu.edu</a>, <a href="mailto:ttefferi@andrew.cmu.edu">ttefferi@andrew.cmu.edu</a><br>
 - Visit: <a href="http://www.cssr4africa.org">www.cssr4africa.org</a>
 
 ## License  

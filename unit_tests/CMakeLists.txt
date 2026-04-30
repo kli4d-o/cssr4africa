@@ -69,7 +69,7 @@ add_message_files(
   DIRECTORY
   behaviorControllerTest/msg   
   FILES
-  overtAttentionMode.msg
+  OvertAttentionMode.msg
 )
 
 add_message_files(
@@ -117,7 +117,6 @@ add_service_files(
   overtAttentionSetMode.srv
   robotLocalizationSetPose.srv
   robotNavigationSetGoal.srv
-  speechEventSetStatus.srv
   speechEventSetLanguage.srv
   tabletEventPromptAndGetResponse.srv
   textToSpeechSayText.srv
@@ -160,6 +159,17 @@ add_service_files(
 #   Action2.action
 # )
 
+add_action_files(
+  DIRECTORY
+  behaviorControllerTest/action
+  FILES
+  gestureExecutionPerformGesture.action
+  textToSpeechSayText.action
+  robotNavigationSetGoal.action
+  robotNavigationSetPose.action
+  speechEventRecogniseSpeech.action
+)
+
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
@@ -168,6 +178,7 @@ generate_messages(
   sensor_msgs
   std_msgs
   std_srvs
+  actionlib_msgs
 )
 
 ###################################

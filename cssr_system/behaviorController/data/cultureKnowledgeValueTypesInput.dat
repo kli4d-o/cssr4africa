@@ -73,6 +73,7 @@ nodExtentFriendliness                   NUMBER
 nodExtentComprehension                  NUMBER
 nodExtentInterest                       NUMBER
 nodVelocity                             UNDEFINED
+gestureArm                              WORD
 deicticShape                            WORD
 deicticAvoid                            WORD
 iconicShape                             WORD
@@ -118,3 +119,6 @@ utilityPhraseIsiZulu6                   UNDEFINED
 utilityPhraseEnglish7                   PHRASE
 utilityPhraseKinyarwanda7               PHRASE
 utilityPhraseIsiZulu7                   UNDEFINED
+utilityPhraseEnglish8                   PHRASE
+utilityPhraseKinyarwanda8               PHRASE
+utilityPhraseIsiZulu8                   UNDEFINED

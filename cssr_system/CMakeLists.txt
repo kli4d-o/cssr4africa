@@ -69,7 +69,7 @@ add_message_files(
   DIRECTORY
   behaviorController/msg
   FILES
-  overtAttentionMode.msg
+  OvertAttentionMode.msg
 )
 
 add_message_files(
@@ -132,7 +132,6 @@ add_service_files(
   overtAttentionSetMode.srv
   robotLocalizationSetPose.srv
   robotNavigationSetGoal.srv
-  speechEventSetStatus.srv
   speechEventSetLanguage.srv
   tabletEventPromptAndGetResponse.srv
   textToSpeechSayText.srv
@@ -187,6 +186,17 @@ add_action_files(
   speech_event/action
   FILES
   recognise_speech.action
+)
+
+add_action_files(
+  DIRECTORY
+  behaviorController/action
+  FILES
+  gestureExecutionPerformGesture.action
+  textToSpeechSayText.action
+  robotNavigationSetGoal.action
+  robotNavigationSetPose.action
+  speechEventRecogniseSpeech.action
 )
 
 add_action_files(
