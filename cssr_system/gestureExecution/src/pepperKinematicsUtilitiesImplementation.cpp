@@ -1,18 +1,19 @@
-/*   pepperKinematicsUtilities.cpp
-*
-* Author: Adedayo Akinade
-* Date: January 06, 2024
-* Version: v1.0
-*
-* Copyright (C) 2023 CSSR4Africa Consortium
-*
-* This project is funded by the African Engineering and Technology Network (Afretec)
-* Inclusive Digital Transformation Research Grant Programme.
-*
-* Website: www.cssr4africa.org
-*
-* This program comes with ABSOLUTELY NO WARRANTY.
-*/
+/* pepperKinematicsUtilitiesImplementation.cpp
+ *
+ * Author:  Adedayo Akinade, Carnegie Mellon University Africa
+ * Email:   aakinade@andrew.cmu.edu
+ * Date:    January 06, 2024
+ * Version: v1.0
+ *
+ * Copyright (C) 2023 CSSR4Africa Consortium
+ *
+ * This project is funded by the African Engineering and Technology Network (Afretec)
+ * Inclusive Digital Transformation Research Grant Programme.
+ *
+ * Website: www.cssr4africa.org
+ *
+ * This program comes with ABSOLUTELY NO WARRANTY.
+ */
 
 #include <gestureExecution/pepperKinematicsUtilitiesInterface.h>
 

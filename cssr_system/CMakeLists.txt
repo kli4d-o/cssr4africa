@@ -189,6 +189,13 @@ add_action_files(
   recognise_speech.action
 )
 
+add_action_files(
+  DIRECTORY
+  gestureExecution/action
+  FILES
+  performGesture.action
+)
+
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
