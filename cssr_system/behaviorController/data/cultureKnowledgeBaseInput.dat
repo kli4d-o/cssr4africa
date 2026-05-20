@@ -42,7 +42,8 @@ nodExtentAgreement 	                     30
 nodExtentRespect 	                        30 
 nodExtentFriendliness 	                  30 
 nodExtentComprehension                    30 
-nodExtentInterest 	                     30 
+nodExtentInterest 	                     30
+gestureArm                                EITHER
 deicticShape 	                           PALM_UPWARDS
 deicticAvoid 	                           PALM_FORWARDS 
 iconicShape 	                           ANIMATE_BEHAVIOR
@@ -62,17 +63,19 @@ bowExtentGreeting 	                     10
 bowExtentRespect 	                        10
 bowExtentGratitude 	                     10
 swayIntensity 	                           ANIMATE_BEHAVIOR
-utilityPhraseEnglish1                     Please press Yes or No on my screen
-utilityPhraseKinyarwanda1                 Mukande Yego cyangwa Oya kuri ekara yanjye
-utilityPhraseEnglish2                     Please follow me as I move around.
-utilityPhraseKinyarwanda2                 Munkurikire
-utilityPhraseEnglish3                     Maybe another time
-utilityPhraseKinyarwanda3                 Ahari ikindi gihe
-utilityPhraseEnglish4                     Hello! Welcome to the Robotics Lab! I'm Pepper, your friendly robot tour guide.
-utilityPhraseKinyarwanda4                 Muraho! Murakazaneza muri robotikisi lab. Nitwa pepa nkaba ndi robo ifasha mugutembereza abashyitsi.
-utilityPhraseEnglish5                     Would you like a tour of the lab?
-utilityPhraseKinyarwanda5                 Wakwifuza gutemberezwa muri laboratwari?
-utilityPhraseEnglish6                     Here is the door
-utilityPhraseKinyarwanda6                 Umuryango uri hano
-utilityPhraseEnglish7                     Goodbye
-utilityPhraseKinyarwanda7                 Murabeho
+utilityPhraseEnglish1                     Hello everyone! Welcome to the AI and Robotics lab, here at Carnegie Mellon University Africa. My name is Pepper. I am what is called a Humanoid Robot. That means I was designed to look, move and act like you, humans! For today, I will be your tour guide.
+utilityPhraseKinyarwanda1                 None
+utilityPhraseEnglish2                     Stand back and watch, as I go around the lab and explain some of the things we do here.
+utilityPhraseKinyarwanda2                 None
+utilityPhraseEnglish3                     Now, we move on to the best part of the tour. The star of the main project done here at the lab.
+utilityPhraseKinyarwanda3                 None
+utilityPhraseEnglish4                     That marks the last item on the tour. If you have any further questions, please ask my colleagues here.
+utilityPhraseKinyarwanda4                 None
+utilityPhraseEnglish5                     That is it from me. I hope you enjoyed the tour of the AI & Robotics Lab here at Carnegie Mellon University Africa.
+utilityPhraseKinyarwanda5                 None
+utilityPhraseEnglish6                     Hi there. Would you like a tour of the lab?
+utilityPhraseKinyarwanda6                 None
+utilityPhraseEnglish7                     No problem. Perhaps we can do it another time.
+utilityPhraseKinyarwanda7                 None
+utilityPhraseEnglish8                     I Hope to meet with you again soon. I will be right here, ready for our next adventure. See you soon!
+utilityPhraseKinyarwanda8                 None

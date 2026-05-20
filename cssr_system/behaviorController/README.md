@@ -113,11 +113,17 @@ Accompanying this code is the deliverable report that provides a detailed explan
         - /speechEvent/set_language
         - /tabletEvent/prompt_and_get_response"
         - /textToSpeech/say_text
+
+    or alternatively the following <span style="color: #ff3333; font-weight: bold;">ROS Action servers</span> (for the relevant ROS nodes):
+
+        - /gestureExecution/perform_gesture
+        - /robotNavigation/set_goal
+        - /textToSpeech/say_text
+        - /speechEvent/recognise_speech_action
     
     ... and the following <span style="color: #ff3333; font-weight: bold;">topics </span>:
 
         - /overtAttention/mode
-        - /speechEvent/text
 
     During initialization, the `behaviorController` node checks for the availability of the required servers and topics in the order listed above. If any are unavailable, the node will terminate and display which server or topic was not found.
 

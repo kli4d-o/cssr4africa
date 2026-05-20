@@ -4,10 +4,6 @@
   <BehaviorTree ID="DetectVisitor">
     <Sequence>
       <Fallback>
-        <SetSpeechEvent name="false"/>
-        <HandleFallBack/>
-      </Fallback>
-      <Fallback>
         <RetrieveListOfExhibits/>
         <HandleFallBack/>
       </Fallback>
@@ -19,25 +15,42 @@
         <SetAnimateBehavior name="enabled"/>
         <HandleFallBack/>
       </Fallback>
-      <Fallback>
-        <SetOvertAttentionMode name="scanning"/>
-        <HandleFallBack/>
-      </Fallback>
-      <IsVisitorDiscovered/>
     </Sequence>
   </BehaviorTree>
 
   <BehaviorTree ID="EndTour">
     <Sequence>
+      <SelectExhibit/>
       <Fallback>
-        <SayText name="7"
-                 _description="Say Goodbye speech"/>
+        <SetOvertAttentionMode name="social"/>
         <HandleFallBack/>
       </Fallback>
       <Fallback>
-        <PerformIconicGesture name="goodbye"/>
+        <SayTextAsync name="4"
+                      _description="That marks the last item ...."/>
         <HandleFallBack/>
       </Fallback>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <Fallback>
+          <NavigateAsync/>
+          <HandleFallBack/>
+        </Fallback>
+        <SayTextAsync name="5"
+                      _description="That&apos;s it from me ...."/>
+      </Parallel>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <Fallback>
+          <SayTextAsync name="8"
+                        _description="I hope to meet you ....."/>
+          <HandleFallBack/>
+        </Fallback>
+        <Fallback>
+          <PerformIconicGestureAsync name="goodbye"/>
+          <HandleFallBack/>
+        </Fallback>
+      </Parallel>
     </Sequence>
   </BehaviorTree>
 
@@ -51,20 +64,27 @@
         <SetAnimateBehavior name="disabled"/>
         <HandleFallBack/>
       </Fallback>
-      <Fallback>
-        <SayText name="4"
-                 _description="Welcome speech"/>
-        <HandleFallBack/>
-      </Fallback>
-      <Fallback>
-        <PerformIconicGesture name="welcome"/>
-        <HandleFallBack/>
-      </Fallback>
-      <Fallback>
-        <SetOvertAttentionMode name="seeking"/>
-        <HandleFallBack/>
-      </Fallback>
-      <IsMutualGazeDiscovered/>
+      <Parallel failure_count="1"
+                success_count="2">
+        <Fallback>
+          <SayTextAsync name="1"
+                        _description="Welcome speech"/>
+          <HandleFallBack/>
+        </Fallback>
+        <Fallback>
+          <PerformIconicGestureAsync name="welcome"/>
+          <HandleFallBack/>
+        </Fallback>
+      </Parallel>
+      <Sequence>
+        <Fallback>
+          <RetrieveListOfExhibits/>
+          <HandleFallBack/>
+        </Fallback>
+        <Sequence>
+          <SelectExhibit/>
+        </Sequence>
+      </Sequence>
     </Sequence>
   </BehaviorTree>
 
@@ -94,53 +114,27 @@
   <BehaviorTree ID="QueryVisitorResponse">
     <Sequence>
       <Fallback>
-        <IsASREnabled/>
         <Sequence>
-          <Fallback>
-            <SayText name="5"
-                     _description="Query Tour Speech"/>
-            <HandleFallBack/>
-          </Fallback>
-          <Fallback>
-            <SayText name="1"
-                     _description="Press &quot;yes&quot; or &quot;no&quot; speech"/>
-            <HandleFallBack/>
-          </Fallback>
-          <Fallback>
-            <PressYesNoDialogue/>
-            <HandleFallBack/>
-          </Fallback>
-        </Sequence>
-      </Fallback>
-      <Fallback>
-        <Sequence>
-          <IsASREnabled/>
           <RetryUntilSuccessful num_attempts="3">
             <Sequence>
               <Fallback>
-                <SayText name="5"
-                         _description="Query Tour Speech"/>
+                <SayTextAsync name="6"
+                              _description="Query Tour Speech"/>
                 <HandleFallBack/>
               </Fallback>
-              <SetSpeechEvent name="true"/>
-              <Sequence>
-                <Delay delay_msec="3000">
-                  <Fallback>
+              <Fallback>
                     <GetVisitorResponse/>
                     <HandleFallBack/>
-                  </Fallback>
-                </Delay>
-              </Sequence>
+                </Fallback>
               <HasVisitorResponded/>
-              <SetSpeechEvent name="false"/>
             </Sequence>
           </RetryUntilSuccessful>
           <IsVisitorResponseYes/>
         </Sequence>
         <ForceFailure>
           <Fallback>
-            <SayText name="3"
-                     _description="Maybe another time speech"/>
+            <SayTextAsync name="7"
+                          _description="Maybe another time speech"/>
             <HandleFallBack/>
           </Fallback>
         </ForceFailure>
@@ -153,69 +147,112 @@
       <StartOfTree _description="Used for debugging and initializing values"/>
       <SubTree ID="DetectVisitor"/>
       <SubTree ID="EngageVisitor"/>
-      <SubTree ID="QueryVisitorResponse"/>
       <SubTree ID="VisitExhibit"/>
+      <SubTree ID="VisitExhibit_2"/>
+      <SubTree ID="VisitExhibit_3"/>
       <SubTree ID="EndTour"/>
     </Sequence>
   </BehaviorTree>
 
   <BehaviorTree ID="VisitExhibit">
     <Sequence>
-    <Fallback>
-        <RetrieveListOfExhibits/>
+      <SelectExhibit/>
+      <Fallback>
+        <SetOvertAttentionMode name="disabled"/>
+        <HandleFallBack/>
+      </Fallback>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <Fallback>
+          <NavigateAsync/>
+          <HandleFallBack/>
+        </Fallback>
+        <SayTextAsync name="2"
+                      _description="Now we move on ..."/>
+      </Parallel>
+      <Fallback>
+        <SetOvertAttentionMode name="social"/>
+        <HandleFallBack/>
+      </Fallback>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <Fallback>
+          <DescribeExhibitSpeechAsync/>
+          <HandleFallBack/>
+        </Fallback>
+        <Fallback>
+          <PerformDeicticGestureAsync/>
+          <HandleFallBack/>
+        </Fallback>
+      </Parallel>
+    </Sequence>
+  </BehaviorTree>
+  <BehaviorTree ID="VisitExhibit_2">
+    <Sequence>
+      <SelectExhibit/>
+      <Fallback>
+        <SetOvertAttentionMode name="disabled"/>
         <HandleFallBack/>
       </Fallback>
       <Fallback>
-        <SayText name="2"
-                 _description="Follow me speech"/>
+          <NavigateAsync/>
+          <HandleFallBack/>
+        </Fallback>
+      <Fallback>
+        <SetOvertAttentionMode name="social"/>
         <HandleFallBack/>
       </Fallback>
-      <Inverter>
-        <KeepRunningUntilFailure>
-          <Sequence>
-            <IsListWithExhibit/>
-            <Sequence>
-              <Fallback>
-                <SelectExhibit/>
-                <HandleFallBack/>
-              </Fallback>
-              <SubTree ID="NavigateToLocation"/>
-              <Fallback>
-                <SetOvertAttentionMode name="social"/>
-                <HandleFallBack/>
-              </Fallback>
-              <Fallback>
-                <IsVisitorPresent/>
-                <ForceFailure>
-                  <SubTree ID="GoHome"/>
-                </ForceFailure>
-              </Fallback>
-              <Fallback>
-                <DescribeExhibitSpeech name="1"/>
-                <HandleFallBack/>
-              </Fallback>
-              <Fallback>
-                <PerformDeicticGesture/>
-                <HandleFallBack/>
-              </Fallback>
-              <Fallback>
-                <SetOvertAttentionMode name="social"/>
-                <HandleFallBack/>
-              </Fallback>
-              <Fallback>
-                <DescribeExhibitSpeech name="2"/>
-                <HandleFallBack/>
-              </Fallback>
-            </Sequence>
-          </Sequence>
-        </KeepRunningUntilFailure>
-      </Inverter>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <Fallback>
+          <DescribeExhibitSpeechAsync/>
+          <HandleFallBack/>
+        </Fallback>
+        <Fallback>
+          <PerformDeicticGestureAsync/>
+          <HandleFallBack/>
+        </Fallback>
+      </Parallel>
+    </Sequence>
+  </BehaviorTree>
+
+  <BehaviorTree ID="VisitExhibit_3">
+    <Sequence>
+      <SelectExhibit/>
+      <Fallback>
+        <SetOvertAttentionMode name="disabled"/>
+        <HandleFallBack/>
+      </Fallback>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <Fallback>
+          <NavigateAsync/>
+          <HandleFallBack/>
+        </Fallback>
+        <SayTextAsync name="3"
+                      _description="Now we move on ..."/>
+      </Parallel>
+      <Fallback>
+        <SetOvertAttentionMode name="social"/>
+        <HandleFallBack/>
+      </Fallback>
+      <Parallel failure_count="1"
+                success_count="-1">
+        <Fallback>
+          <DescribeExhibitSpeechAsync/>
+          <HandleFallBack/>
+        </Fallback>
+        <Fallback>
+          <PerformDeicticGestureAsync/>
+          <HandleFallBack/>
+        </Fallback>
+      </Parallel>
     </Sequence>
   </BehaviorTree>
 
   <!-- Description of Node Models (used by Groot) -->
   <TreeNodesModel>
-    <Action ID="DescribeExhibitSpeech"
+    <Action ID="DescribeExhibitSpeechAsync"
             editable="true"/>
     <Action ID="GetVisitorResponse"
             editable="true"/>
@@ -223,31 +260,21 @@
             editable="true"/>
     <Condition ID="HasVisitorResponded"
                editable="true"/>
-    <Condition ID="IsASREnabled"
-               editable="true"/>
-    <Condition ID="IsListWithExhibit"
-               editable="true"/>
-    <Condition ID="IsMutualGazeDiscovered"
-               editable="true"/>
-    <Condition ID="IsVisitorDiscovered"
-               editable="true"/>
-    <Condition ID="IsVisitorPresent"
-               editable="true"/>
     <Condition ID="IsVisitorResponseYes"
                editable="true"/>
     <Action ID="Navigate"
             editable="true"/>
-    <Action ID="PerformDeicticGesture"
+    <Action ID="NavigateAsync"
             editable="true"/>
-    <Action ID="PerformIconicGesture"
+    <Action ID="PerformDeicticGestureAsync"
             editable="true"/>
-    <Action ID="PressYesNoDialogue"
+    <Action ID="PerformIconicGestureAsync"
             editable="true"/>
     <Action ID="RetrieveInitialLocation"
             editable="true"/>
     <Action ID="RetrieveListOfExhibits"
             editable="true"/>
-    <Action ID="SayText"
+    <Action ID="SayTextAsync"
             editable="true"/>
     <Action ID="SelectExhibit"
             editable="true"/>
@@ -256,8 +283,6 @@
     <Action ID="SetOvertAttentionMode"
             editable="true"/>
     <Action ID="SetRobotPose"
-            editable="true"/>
-    <Action ID="SetSpeechEvent"
             editable="true"/>
     <Action ID="StartOfTree"
             editable="true"/>
