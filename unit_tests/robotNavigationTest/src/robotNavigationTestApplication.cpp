@@ -280,6 +280,11 @@ int main(int argc, char **argv) {
     int result = 0;
     result = RUN_ALL_TESTS();
 
+    // Signal ros::ok() to return false so the spin thread can exit.
+    // Without this the heartbeat loop blocks join() and the launch file's
+    // required="true" never gets to tear down the rest of the harness.
+    ros::shutdown();
+
     // Stop the spinner thread
     if (spin_thread.joinable()) {
         spin_thread.join();

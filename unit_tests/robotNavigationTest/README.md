@@ -65,9 +65,9 @@ Accompanying this code is comprehensive test documentation that provides detaile
 4. **Run the `robotNavigationTest`:**
 
    **Approach 1: Launch file based Test Execution (Recommended)**
-   
+
    Run the complete test suite using two separate terminals:
-    
+
    - **Terminal 1** - Launch robot interface: Make sure you change the robot IP, and network interface in the launch file to your specific robot's IP address and network interface name.
         ```bash
         cd $HOME/workspace/pepper_rob_ws
@@ -81,23 +81,29 @@ Accompanying this code is comprehensive test documentation that provides detaile
       roslaunch unit_tests robotNavigationTestLaunchRobot.launch robot_ip:=172.29.111.230
       ```
 
-   - **Terminal 2** - Set the initial robot pose:
+   - **Terminal 2** - Launch test harness: the harness starts the pose source, navigation node, and the test node, sets the initial (home) pose, and automatically shuts everything down when all tests complete.
         ```bash
         cd $HOME/workspace/pepper_rob_ws
-        source devel/setup.bash
-        rosservice call /robotLocalization/set_pose 2.0 7.8 270.0
-        ```
-
-   - **Terminal 3** - Launch test harness: (**You can set the initial (home) coordinate of robot x, y, and theta values in the launch file argument parameters, if absolute localization is not fully implemented** )
-        ```bash
-        cd $HOME/workspace/pepper_rob_ws 
         source devel/setup.bash
         roslaunch unit_tests robotNavigationTestLaunchTestHarness.launch
         ```
 
+      **Setting the initial (home) pose without editing the launch file:** pass `initial_robot_x`, `initial_robot_y`, and `initial_robot_theta` (degrees) as launch arguments. For example, to set the home pose to `(x = 2.0 m, y = 7.8 m, theta = 270 deg)`:
+        ```bash
+        roslaunch unit_tests robotNavigationTestLaunchTestHarness.launch \
+            initial_robot_x:=2.0 initial_robot_y:=7.8 initial_robot_theta:=270.0
+        ```
+
+      **Selecting the pose source:** by default the harness uses the test driver (`robotNavigationDriver`) as the pose publisher. To use the real `robotLocalization` node instead, pass `use_robot_localization:=true`. The harness will also call `/robotLocalization/set_pose` with the values above so no separate terminal is required:
+        ```bash
+        roslaunch unit_tests robotNavigationTestLaunchTestHarness.launch \
+            use_robot_localization:=true \
+            initial_robot_x:=2.0 initial_robot_y:=7.8 initial_robot_theta:=270.0
+        ```
+
       <div style="background-color: #1e1e1e; padding: 15px; border-radius: 4px; border: 1px solid #404040; margin: 10px 0;">
       <span style="color: #ff3333; font-weight: bold;">NOTE: </span>
-         <span style="color: #cccccc;">The test harness automatically starts all required components including <code>robotNavigationDriver (which works as a robot localization providing a /robotLocalization/pose topic)</code>, <code>robotNavigation</code>, and <code>robotNavigationTest</code> nodes. The system waits for all services to be available before beginning test execution. The <code>robotNavigation</code> node runs in CAD mode during unit testing. </span>
+         <span style="color: #cccccc;">The test harness automatically starts all required components including the pose source (either <code>robotNavigationDriver</code>, which provides a <code>/robotLocalization/pose</code> topic, or the real <code>robotLocalization</code> node), <code>robotNavigation</code>, and <code>robotNavigationTest</code>. The system waits for all services to be available before beginning test execution. The <code>robotNavigation</code> node runs in CAD mode during unit testing. When all tests complete, the <code>robotNavigationTest</code> node exits and the launch file automatically tears down the remaining nodes. </span>
       </div>
 
    **Approach 2: Manual Step-by-Step Execution**
@@ -259,7 +265,7 @@ $HOME/workspace/pepper_rob_ws/src/cssr4africa/unit_tests/robotNavigationTest/dat
    rostopic list | grep /robotNavigation
    
    # Monitor test logs
-   rostopic echo /rosout | grep robotNavigationUnitTest
+   rostopic echo /rosout | grep robotNavigationTest
    ```
 
 ## Support
